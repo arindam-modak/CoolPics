@@ -6,7 +6,46 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
 	<link rel="stylesheet" type="text/css" href="style.css" />
+        <style>
+.button {
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
 
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
 </head>
 <body>
 
@@ -26,7 +65,7 @@
 		
 		<ul class="nav navbar-nav">
 			<li class="active">
-				<a href="#">	
+				<a href="pics.php">	
 					<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;
 					Pics
 				</a>
@@ -49,7 +88,7 @@
 				</a>
 			</li>
 			<li class="">
-				<a href="#">	
+				<a href="https://github.com/arindam-modak">	
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
 					Logout
 				</a>
@@ -59,35 +98,16 @@
 	</div>
     </div>
 </nav>
-
-<?php
-$con = mysqli_connect("localhost", "root", "");
-	
-	mysqli_select_db($con, "");
-		$sql = "Select * from tblpics";
-		
-		$rs = mysqli_query($con, $sql);
-		echo '<div class="row">';
-		while($row = mysqli_fetch_array($rs))
-		{
-			echo '<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><center>';
-			echo '<div class="thumbnail" style="height:270px;width:300px;">';
-			echo '<img src="'.$row['colPic'].'" style="height:200px;width:280px;">';
-			echo '<b><a href="#" style="text-decoration: none">'.$row['colId'].'</a></b><br>';
-			echo '<div class="row"><div class="col-md-4"></div> <div class="col-md-2"><div class="thumbnail" style="height:26px;width:30px;"><a href="#" style="text-decoration: none">	
-									<center><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></center>&nbsp;
-									
-								</a></div></div>
-								<div class="col-md-1"><div class="thumbnail" style="height:26px;width:30px;"><a href="#" style="text-decoration: none">	
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-									
-								</a></div></div></div>
-							</div>
-						</center></div>';
-		}
-		echo '</div>';
-	mysqli_close($con);
-?>
-
+<br><br>
+<div class="container-fluid">
+<div class="jumbotron" style="background-color:silver;"><br>
+<center><font face="Vernon Adams"><h1>Welcome!!!</h1></font>
+<font color="teal" face="algerian"><h3> This site lets you see and add cool pics. </h3></font>
+<br><br>
+<center><b><font color="orange"><form action="pics.php"><button type="submit" class="button"><span>ENTER</span></button></form></font></b></center>
+<br>
+</center>
+</div>
+</div>
 </body>
 </html>
