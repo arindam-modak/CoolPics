@@ -48,6 +48,12 @@
 					Add Pic
 				</a>
 			</li>
+                         <li class="">
+				<a href="FileUpload.php">	
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;
+					Upload Pic
+				</a>
+			</li>
 			<li class="">
 				<a href="https://github.com/arindam-modak">	
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
@@ -61,14 +67,15 @@
 </nav>
 <?php
 	
-	if(isset($_REQUEST['txtId']))
+        /*if(isset($_REQUEST['txtId']))
 	{
 		$id = $_REQUEST['txtId'];
 	}
 	else
 	{
 		$id = "";
-	}
+	}*/
+        $id = "";
 	if(isset($_REQUEST['txtName']))
 	{
 		$name = $_REQUEST['txtName'];
@@ -88,12 +95,12 @@
 	//Add button
 	if(isset($_REQUEST['btnAdd']))
 	{
-$con = mysqli_connect("localhost", "root", "");
+$con = mysqli_connect("localhost", "id1803981_pics", "pics123");
 	
-	mysqli_select_db($con, "");
+	mysqli_select_db($con, "id1803981_pics");
 		$sql = "Insert into tblpics(colId,colName,colUrl) values('$id', '$name', '$url')";
 		
-		if($id=="" or $name=="" or $url=="")
+		if($name=="" or $url=="")
 		{
 			echo "Error! some of  the required fields are empty!!";
 		}
