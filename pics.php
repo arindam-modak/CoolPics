@@ -62,15 +62,15 @@
 
 <?php
 
-$con = mysqli_connect("localhost", "root", "");
+$con = mysqli_connect("localhost", "id1803981_pics", "pics123");
 	
-	mysqli_select_db($con, "");
+	mysqli_select_db($con, "id1803981_pics");
               
 		$sql = "Select * from tblpics";
 		
 		$rs = mysqli_query($con, $sql);
-                $flag1=1;
-		echo '<div class="row">';
+                $flag1 = 0;
+		echo '<div class="container"><div class="row">';
 		while($row = mysqli_fetch_array($rs))
 		{
                         if($row['colHitLike']==1)
@@ -80,7 +80,7 @@ $con = mysqli_connect("localhost", "root", "");
                         }
                         $sql1 = "UPDATE tblpics SET colHitLike = 1 WHERE colId =" . $row['colId'] . "";
                         $rt = mysqli_query($con, $sql1);
-                
+                         
 			echo '<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><center>';
 			echo '<div class="thumbnail" style="margin-left:20px;margin-right:20px;">';
 			echo '<img src="'.$row['colUrl'].'" style="height:200px;width:280px;">';
@@ -89,30 +89,32 @@ $con = mysqli_connect("localhost", "root", "");
 <button type="submit"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></button></form>'.$row['colLike'].'</div></div>
 								&nbsp;&nbsp; <div class="col-md-2"><div class="thumbnail" style="height:32px;width:40px;"><form action="delete.php"><input type="hidden" name="txtDelete" value="'.$row['colId'].'"> 
 <button type="submit"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></form></div></div>
-<h3><br><hr><u><b><i>Comments: </u></b></i></h3>
+</div><h3><br><hr><u><b><i>Comments: </u></b></i></h3>
 
-</div>
-							</div></center>';
+
+							</center>';
 						
                 $sql1 = "Select * from tblcomment Where colId =" . $row['colId'] . "";
 		$rs1 = mysqli_query($con, $sql1);
                 echo '<ul type="square">';
-                
+                $flag1 = $flag1 + 1;
                 $flag2=0;
 		while($row1 = mysqli_fetch_array($rs1))
 		{
                           echo '<li><b>'.$row1['colCommentName'].'</b> : '.$row1['colComment'].'</li>';
-                          $flag1=1;
-                          $flag2=1;
+                          
+                          $flag2 = 1;
                 }
                  echo '</ul><hr>';
                  echo '<form action="comment.php" style="margin-left:20px"><input type="hidden" name="txtComId" value="'.$row['colId'].'">
                                 Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtComName" style="width:100px"><br>Comment : <input type="text" name="txtComment" style="width:200px"><button type="submit" value="comment">ADD</button></form></div>';
+                          if(($flag1)%3==0)
+                          {  echo '</div></div><div class="container"><div class="row">'; }
                  
                       $sql1 = "UPDATE tblpics SET colHitLike = 0 WHERE colId =" . $row['colId'] . "";
                         $rt = mysqli_query($con, $sql1);
 		}
-		echo '</div>';
+		echo '</div></div>';
 	mysqli_close($con);
 ?>
 
