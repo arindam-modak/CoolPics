@@ -1,8 +1,13 @@
+<?php
+    session_start();
+?>
+
 <html>
 <head>
 	<title>Delete Pics</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
 	<link rel="stylesheet" type="text/css" href="style.css" />
@@ -43,19 +48,34 @@
 
 		<ul class="nav navbar-nav navbar-right">
 			<li class="">
-				<a href="addpic.html">	
+                               <a href="https://github.com/arindam-modak" style="text-decoration:none;"><i class="fa fa-github" aria-hidden="true"></i> ADM</a>
+                        </li>
+			<li class="">
+				<a href="addpic.php">	
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;
 					Add Pic
 				</a>
 			</li>
-                         <li class="">
+                        <li class="">
 				<a href="FileUpload.php">	
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;
 					Upload Pic
 				</a>
 			</li>
+                        <li class="">
+				<a href="register.php">	
+					<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;
+					Register
+				</a>
+			</li>
+                        <li class="">
+				<a href="login.php">	
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+					login
+				</a>
+			</li>
 			<li class="">
-				<a href="https://github.com/arindam-modak">	
+				<a href="logout.php">	
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
 					Logout
 				</a>
@@ -76,11 +96,11 @@
 		$id = "";
 	}
 
-$con = mysqli_connect("localhost", "root", "");
+        $con = mysqli_connect("localhost", "root", "");
 	
 	mysqli_select_db($con, "");
 		
-		$sql = "DELETE from tblpics WHERE colId =" . $id . "";
+		$sql = "DELETE from tblpics WHERE colId =" . $id . " AND colName= '" . $_SESSION['username'] . "'";
 		
 			if(mysqli_query($con, $sql)===true)
 			{
@@ -99,7 +119,8 @@ $con = mysqli_connect("localhost", "root", "");
 			}
 		mysqli_close($con);
 	
-	
+	header("Location: https://iit2016036.000webhostapp.com/pics.php?"); /* Redirect browser */
+        exit();
 		
 ?>
 </body>
