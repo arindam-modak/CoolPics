@@ -6,7 +6,12 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
 	<link rel="stylesheet" type="text/css" href="style.css" />
-
+        <style>
+            .scrollable {
+             height: 80px; /* or any value */
+             overflow-y: auto;
+             }
+         </style>
 </head>
 <body>
 
@@ -68,9 +73,9 @@
 
 <?php
 
-$con = mysqli_connect("localhost", "root", "");
+$con = mysqli_connect("localhost", "id1803981_pics", "pics123");
 	
-	mysqli_select_db($con, "");
+	mysqli_select_db($con, "id1803981_pics");
               
 		$sql = "Select * from tblpics";
 		
@@ -102,7 +107,7 @@ $con = mysqli_connect("localhost", "root", "");
 						
                 $sql1 = "Select * from tblcomment Where colId =" . $row['colId'] . "";
 		$rs1 = mysqli_query($con, $sql1);
-                echo '<ul type="square">';
+                echo '<div class="scrollable"><ul type="square">';
                 $flag1 = $flag1 + 1;
                 $flag2=0;
 		while($row1 = mysqli_fetch_array($rs1))
@@ -111,7 +116,7 @@ $con = mysqli_connect("localhost", "root", "");
                           
                           $flag2 = 1;
                 }
-                 echo '</ul><hr>';
+                 echo '</ul></div><hr>';
                  echo '<form action="comment.php" style="margin-left:20px"><input type="hidden" name="txtComId" value="'.$row['colId'].'">
                                 Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtComName" style="width:100px"><br>Comment : <input type="text" name="txtComment" style="width:200px"><button type="submit" value="comment">ADD</button></form></div>';
                           if(($flag1)%3==0)
