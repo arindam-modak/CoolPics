@@ -73,9 +73,9 @@
 
 <?php
 
-$con = mysqli_connect("localhost", "id1803981_pics", "pics123");
+$con = mysqli_connect("localhost", "root", "");
 	
-	mysqli_select_db($con, "id1803981_pics");
+	mysqli_select_db($con, "");
               
 		$sql = "Select * from tblpics";
 		
