@@ -92,9 +92,9 @@
 		$comment = "";
 	}
 	
-$con = mysqli_connect("localhost", "id1803981_pics", "pics123");
+$con = mysqli_connect("localhost", "root", "");
 	
-	mysqli_select_db($con, "id1803981_pics");
+	mysqli_select_db($con, "");
 		$sql = "Insert into tblcomment(colId,colCommentName,colComment) values('$id', '$name', '$comment')";
 		
 		if($id=="" or $name=="" or $comment=="")
