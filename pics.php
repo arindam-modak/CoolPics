@@ -48,6 +48,12 @@
 					Add Pic
 				</a>
 			</li>
+                         <li class="">
+				<a href="FileUpload.php">	
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;
+					Upload Pic
+				</a>
+			</li>
 			<li class="">
 				<a href="https://github.com/arindam-modak">	
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
