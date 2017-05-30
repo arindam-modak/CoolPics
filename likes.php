@@ -48,6 +48,12 @@
 					Add Pic
 				</a>
 			</li>
+                         <li class="">
+				<a href="FileUpload.php">	
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;
+					Upload Pic
+				</a>
+			</li>
 			<li class="">
 				<a href="https://github.com/arindam-modak">	
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
@@ -70,9 +76,9 @@
 		$id = "";
 	}
 
-$con = mysqli_connect("localhost", "root", "");
+$con = mysqli_connect("localhost", "id1803981_pics", "pics123");
 	
-	mysqli_select_db($con, "");
+	mysqli_select_db($con, "id1803981_pics");
 		
 		$sql = "UPDATE tblpics SET colLike = colLike + 1 WHERE colId =" . $id . "";
 		
