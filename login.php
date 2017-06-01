@@ -97,11 +97,14 @@
 	</div>
     </div>
 </nav>
-<br><br>
+<br>
 <div class="container">
   <h2>Login Form</h2>
   <p>Login to enter cool pics!!!</p>
   <form class="form" action="login.php" method="POST">
+      <div class="form-group">
+          <h3><label for="email">Confirm your email id first if you are newly registered.</label></h3>
+      </div>
       <div class="form-group">
           <label for="email">UserName:</label>
           <input type="text" name="txtNameUser" class="form-control" placeholder="Enter user name">
@@ -115,6 +118,7 @@
    </form>
 </div>
 <?php
+        echo "<center><h2> If you are not registered go to <a href='register.php'>Register Page</a> to create a CoolPics account.</h2></center>";
         if (isset($_SESSION['username']))
         {
                
@@ -151,21 +155,27 @@
 	mysqli_select_db($con, "");
                     $sql1 = "Select * from tbluser";
                     $rs1 = mysqli_query($con, $sql1);
-		$flag2=1;
+		$flag2=0;
 		while($row1 = mysqli_fetch_array($rs1))
 		{ 
                        if($row1['colUName']==$name && $row1['colUPwd']==$password){
-                           $flag2 = 0;
+                           if($row1['colConfirm']==0)
+                               { $flag2 = 1; }
+                           else { $flag2 = 2; }
                        }
                 }
-                  if($flag2==1)
-                  {    echo "Enter correct ursename and password!!!"; }
+                  if($flag2==0)
+                  {    echo "<center><h2>Enter correct ursename and password!!!</center></h2>"; }
                   else {
-                      $_SESSION['username']=$name;
+                      if($flag2==1) { echo "<center><h2> Please confirm your email first to login. A confirmation link has been send to your registered email. </h2></center>";}
+                      else {
+                           $_SESSION['username']=$name;
+                             header("Location: https://iit2016036.000webhostapp.com/pics.php?"); /* Redirect browser */
+                             exit();
+                      }
 		}mysqli_close($con);
-	       header("Location: https://iit2016036.000webhostapp.com/pics.php?"); /* Redirect browser */
-               exit();
-         }
+	       
+             }
          }
          else { echo '<br><pre>          <font color="red">you are already logged in '.$_SESSION['username'].'. Please logout first. </font></pre>'; }
     }
