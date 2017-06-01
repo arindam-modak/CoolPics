@@ -96,18 +96,21 @@
 	</div>
     </div>
 </nav>
-<br><br>
+
 <div class="container">
   <h2>Register Form</h2>
   <p>Register yourself for cool pics!!!</p>
   <form class="form" id="FileUploadForm" action="register.php" method="POST">
+      <div class="form-group">
+          <h3><label for="email">Please enter a genuine email id as a confirmation code will be send to your email.</label></h3>
+      </div>
       <div class="form-group">
           <label for="email">UserName:</label>
           <input type="text" name="txtNameUser" class="form-control" placeholder="Enter user name">
       </div>
       <div class="form-group">
           <label for="email">Email:</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter email" name="txtemail">
+          <input type="email" class="form-control" id="email" placeholder="Enter email (valid)" name="txtemail">
       </div>
       <div class="form-group">
           <label for="pwd">PassWord:</label>
@@ -120,9 +123,11 @@
 </div>
 
 <?php
+        echo "<center><h2> If you are already registered go to <a href='login.php'>Login Page</a> to enter CoolPics</h2></center>";
+        $flag4=0;
         if (isset($_SESSION['username']))
         {
-               
+               ;
         }
         else { $_SESSION['username']=""; }
  
@@ -131,11 +136,11 @@
         $id="";
 	if(isset($_REQUEST['txtNameUser']))
 	{
-		$name = $_REQUEST['txtNameUser'];
+		$username = $_REQUEST['txtNameUser'];
 	}
 	else
 	{
-		$name = "";
+		$username = "";
 	}
 	if(isset($_REQUEST['txtemail']))
 	{
@@ -154,7 +159,7 @@
 		$password = "";
 	}	
 		
-		if($name=="" || $email=="" || $password=="")
+		if($username=="" || $email=="" || $password=="")
 		{
 			echo "Error! some of  the required fields are empty!!";
 		}
@@ -167,39 +172,35 @@
 		$flag2=0;
 		while($row1 = mysqli_fetch_array($rs1))
 		{ 
-                       if($row1['colUName']==$name){
+                       if($row1['colUName']==$username){
                            $flag2 = 1;
                        }
                 }
                   if($flag2==1)
                   {    echo "Error! username already exists!!"; }
                   else {
-                      $sql = "Insert into tbluser(colUId,colUName,colUEmail,colUPwd) values('$id', '$name', '$email','$password')";
-			if(mysqli_query($con, $sql)===true)
-			{
-				if(mysqli_affected_rows($con)>0)
-				{
-					echo "You are Add successfully";
-                                         header("Location: https://iit2016036.000webhostapp.com/login.php");
-                                          exit();
-				}
-				else
-				{
-					echo "Record could not be addeded!!";
-				}
-			}
-			else
-			{
-				echo "Error! Query could not be run!!";
-			}
+                      $confirmcode = rand();
+                      $sql = "Insert into tbluser(colUId,colUName,colUEmail,colUPwd,colConfirm,colConfirmCode) values('$id','$username','$email','$password','0','$confirmcode')";
+                      $rs = mysqli_query($con, $sql);
+                      $message = 
+                      "   
+                       confirm your email!
+                       please click the link below to confirm your account in coolpics.
+                       https://iit2016036.000webhostapp.com/emailconfirm.php?username=$username&code=$confirmcode
+                      ";
+                      mail($email,"CoolPics confirm email", $message, "From: DoNotReply@coolpics.com");
+			
+					echo "<center><h2>You are Added successfully!!! please confirm your mail. Then login.</h2></center>";
+                                        $flag4=1;
                         
-		}mysqli_close($con);
+                        }
+		mysqli_close($con);
 	
          }
          }
        else { echo '<br><pre>           <font color="red">    you are already logged in '.$_SESSION['username'].'. Please logout first. </font></pre>'; }
      }
-
+     
 ?>
 
 </body>
